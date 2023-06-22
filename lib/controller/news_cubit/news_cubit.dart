@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../services/dio_helper.dart';
-import '../../../services/shared_preferences_helper.dart';
-import '../../business_screen/business_screen.dart';
-import '../../sports_screen/sports_screen.dart';
-import '../science_screen.dart';
+import '../../../data/dio_helper.dart';
+import '../../../data/shared_preferences_helper.dart';
+import '../../view/screens/business_screen.dart';
+import '../../view/screens/science_screen.dart';
+import '../../view/screens/sports_screen.dart';
 
 part 'news_state.dart';
 
@@ -66,14 +65,14 @@ class NewsCubit extends Cubit<NewsState> {
     DioHelper.getData(
       url: 'v2/top-headlines',
       query: {
-        'country': 'eg',
+        //'country': 'eg',
+        'language': 'ar',
         'category': 'business',
         'apiKey': '7963b3318b6f4b82a4569760983b2d15',
       },
     ).then((value) {
       //print(value?.data['articles'][0]['title'].toString());
       business = value?.data['articles'];
-      //print(business[0]['title']);
       emit(NewsGetBusinessSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -87,7 +86,8 @@ class NewsCubit extends Cubit<NewsState> {
       DioHelper.getData(
         url: 'v2/top-headlines',
         query: {
-          'country': 'eg',
+          //'country': 'eg',
+          'language': 'ar',
           'category': 'sports',
           'apiKey': '7963b3318b6f4b82a4569760983b2d15',
         },
@@ -107,11 +107,12 @@ class NewsCubit extends Cubit<NewsState> {
 
   void getScience() {
     emit(NewsGetScienceLoadingState());
-    if(science.isEmpty){
+    if (science.isEmpty) {
       DioHelper.getData(
         url: 'v2/top-headlines',
         query: {
-          'country': 'eg',
+          //'country': 'eg',
+          'language': 'ar',
           'category': 'science',
           'apiKey': '7963b3318b6f4b82a4569760983b2d15',
         },
@@ -124,16 +125,14 @@ class NewsCubit extends Cubit<NewsState> {
         print(error.toString());
         emit(NewsGetScienceErrorState(error.toString()));
       });
-    }else{
+    } else {
       emit(NewsGetScienceSuccessState());
     }
-
   }
+
   void getSearch(String value) {
-
-
     emit(NewsGetSearchLoadingState());
-    search=[];
+    search = [];
     DioHelper.getData(
       url: 'v2/everything',
       query: {
@@ -149,14 +148,12 @@ class NewsCubit extends Cubit<NewsState> {
       print(error.toString());
       emit(NewsGetSearchErrorState(error.toString()));
     });
-
-
   }
 
   bool isDark = false;
 
   void changeMode({bool? fromShared}) {
-    if(fromShared != null) {
+    if (fromShared != null) {
       isDark = fromShared;
       emit(AppChangeModeState());
       print('from shared');
@@ -167,7 +164,5 @@ class NewsCubit extends Cubit<NewsState> {
       });
       print('not from shared');
     }
-
-
   }
 }

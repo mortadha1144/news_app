@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../controller/news_cubit/news_cubit.dart';
 import '../widgets/article_builder.dart';
 import '../widgets/custom_text_field.dart';
-import 'news_cubit/news_cubit.dart';
 
 class SearchScreen extends StatelessWidget {
    SearchScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'news_cubit/news_cubit.dart';
+import '../../controller/news_cubit/news_cubit.dart';
 import 'search_screen.dart';
 
 class NewsLayout extends StatelessWidget {
@@ -27,7 +27,7 @@ class NewsLayout extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  AppCubit.get(context).changeMode();
+                  NewsCubit.get(context).changeMode();
                 },
                 icon: const Icon(
                   Icons.brightness_4_outlined,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../home_screen/news_cubit/news_cubit.dart';
+import '../../controller/news_cubit/news_cubit.dart';
 import '../widgets/article_builder.dart';
 
 class SportsScreen extends StatelessWidget {
